@@ -23,7 +23,6 @@ PyTorch implementation of YOLOv3 trained on Pascal VOC dataset, achieving 87.68%
 | Final mAP@50 | 87.22% |
 | Training Time | ~15 hours |
 | Inference Speed | 2.5 images/sec |
-| Best Epoch | 21 |
 | Total Epochs | 30 |
 | GPU | RTX 3060 12GB |
 
