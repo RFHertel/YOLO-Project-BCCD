@@ -134,7 +134,7 @@ python test_bccd_two_stage_enhanced.py --batch --compare
 # Empirical validation (best results)
 python test_bccd_empirical_validation.py --batch --compare
 
-Configuration Options
+# Configuration Options
 Training Parameters
 
 --epochs: Number of training epochs (default: 100)
@@ -142,36 +142,25 @@ Training Parameters
 --lr: Learning rate (default: 1e-4)
 --resume: Resume from checkpoint
 
-Testing Parameters
+# Testing Parameters
 
 --conf: Confidence threshold (default: 0.25)
 --nms: NMS IoU threshold (default: 0.3)
 --model: Model weights path (default: weight/bccd_best.pt)
 --compare: Generate comparison visualizations
 
-cd C:\AWrk\YOLO_Project_BCCD\yolov3_pytorch
 
-All scripts use relative paths from this directory.
-Results Interpretation
-The empirical validation system provides:
-
-detection_tracking.json: Detailed log of all processing steps
-summary.json: Overall performance metrics
-Comparison images: Visual GT vs prediction comparisons
-
-Key metrics to monitor:
-
-Recall per class (target >80%)
-Detection rate (total predictions / total GT)
-Color correction effectiveness (check logs)
-
-Troubleshooting
+# Troubleshooting
 Common Issues
 
 CUDA out of memory: Reduce batch size
 No detections: Lower confidence threshold
 Too many false positives: Increase confidence threshold
 Missing platelets, WBCs or RBCs: Check empirical validation thresholds
+
+File Paths
+Ensure your working directory is:
+cd C:\AWrk\YOLO_Project_BCCD\yolov3_pytorch
 ============================================================
 BCCD Stats:
 ============================================================
