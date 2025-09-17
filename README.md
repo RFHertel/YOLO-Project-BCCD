@@ -53,7 +53,7 @@ python test_bccd_clean.py --evaluate
 - Generate empirical statistics from training annotations:
 python analyze_training_annotations.py
 
-This creates annotated_training_set_ranges.json containing:
+  This creates annotated_training_set_ranges.json containing:
 - Area distributions per class
 - Color statistics (RGB, HSV, blue percentage)
 - Overlap patterns between classes
