@@ -50,15 +50,14 @@ python test_bccd_clean.py --batch
 python test_bccd_clean.py --evaluate
 
 3. Analyze Training Data
-Generate empirical statistics from training annotations:
-
+- Generate empirical statistics from training annotations:
 python analyze_training_annotations.py
-This creates annotated_training_set_ranges.json containing:
 
-Area distributions per class
-Color statistics (RGB, HSV, blue percentage)
-Overlap patterns between classes
-Other geometric features
+This creates annotated_training_set_ranges.json containing:
+- Area distributions per class
+- Color statistics (RGB, HSV, blue percentage)
+- Overlap patterns between classes
+- Other geometric features
 
 - Process single image
 python test_bccd_two_stage_enhanced.py --image data_bccd/BCCD/JPEGImages/BloodImage_00001.jpg --compare
