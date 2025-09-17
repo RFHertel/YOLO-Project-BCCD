@@ -6,47 +6,38 @@ Project Overview
 This project implements YOLOv3 for blood cell detection and classification on the BCCD dataset. The system detects and classifies three types of blood cells: Red Blood Cells (RBC), White Blood Cells (WBC), and Platelets. The project includes training, evaluation, and advanced post-processing techniques using empirical validation based on training data statistics.
 
 Directory Structure
-
 C:\AWrk\YOLO_Project_BCCD\yolov3_pytorch\
-│
-├── data_bccd/
-│   └── BCCD/
-│       ├── JPEGImages/          # Blood cell images
-│       ├── Annotations/         # XML annotation files  
-│       └── ImageSets/
-│           └── Main/
-│               ├── train.txt    # Training image list
-│               └── test.txt     # Test image list
-│
-├── model/                       # Model architecture files
-│   └── yolov3_bccd.py
-│
-├── utils/                       # Utility functions
-│   ├── data_augment.py
-│   ├── datasets.py
-│   └── tools.py
-│
-├── weight/                      # Model weights
-│   └── bccd_best.pt            # Best trained model
-│
-├── outputs/                     # Output directories (auto-created)
-│   └── [timestamp_folders]/    # Results from each run
-│
-├── config/                      # Configuration files
-│   └── yolov3_config_bccd.py
-│
-├── eval/                        # Evaluation scripts
-│   └── evaluator_bccd.py
-│
-│── Core Scripts:
-├── train_bccd_clean.py          # Training script
-├── test_bccd_clean.py           # Basic testing
-├── test_bccd_two_stage_enhanced.py      # Two-stage detection
-├── test_bccd_empirical_validation.py    # Empirical validation
-├── analyze_training_annotations.py      # Generate training statistics
-│
-│── Generated Files:
-└── annotated_training_set_ranges.json   # Training data statistics
+
+Data & Configuration:
+
+- data_bccd/BCCD/ - Dataset root
+- JPEGImages/ - Blood cell images
+- Annotations/ - XML annotation files
+- ImageSets/Main/ - train.txt and test.txt splits
+- config/ - Configuration files
+- yolov3_config_bccd.py - Model configuration
+- Model & Code:
+- model/ - Model architecture files
+- yolov3_bccd.py - BCCD-specific YOLOv3 model
+- utils/ - Utility functions
+- data_augment.py - Data augmentation classes
+- datasets.py - Dataset loaders
+- tools.py - Helper functions
+- eval/ - Evaluation scripts
+- evaluator_bccd.py - mAP calculation
+- Weights & Outputs:
+- weight/ - Model weights
+- bccd_best.pt - Best trained model checkpoint
+- outputs/ - Auto-generated result directories
+- [timestamp_folders]/ - Results from each run
+- Main Scripts:
+- train_bccd_clean.py - Training script
+- test_bccd_clean.py - Basic testing and evaluation
+- test_bccd_two_stage_enhanced.py - Two-stage detection with - color correction
+- test_bccd_empirical_validation.py - Empirical validation using training statistics
+- analyze_training_annotations.py - Generate training data statistics
+- Generated Files:
+- annotated_training_set_ranges.json - Training data statistics (created by analyze script)
 
 # Installation:
 
@@ -85,11 +76,11 @@ python test_bccd_clean.py --evaluate
   - Other geometric features
 
 4. Test script (1 stage)
-- Process single image
+- Process single image:
 
-python test_bccd_two_stage_enhanced.py --image data_bccd/BCCD/JPEGImages/BloodImage_00001.jpg --compare
+  python test_bccd_two_stage_enhanced.py --image data_bccd/BCCD/JPEGImages/BloodImage_00001.jpg --compare
 
-- Process all test images with comparisons
+- Process all test images with comparisons:
 python test_bccd_two_stage_enhanced.py --batch --compare
 
 5. Two-Stage Detection (Color Correction)
@@ -226,13 +217,10 @@ A script automatically analyzes the training distribution and those insights inf
 
 If retraining, modify utils/datasets.py:
 
-Remove Mixup - destroys color information
-
-Keep RandomHorizontalFlip
-
-Remove RandomCrop - risks losing small platelets
-
-Add ColorAwareAugment for better color learning
+- Remove Mixup - destroys color information
+- Keep RandomHorizontalFlip
+- Remove RandomCrop - risks losing small platelets
+- Add ColorAwareAugment for better color learning
 
 # Development Timeline:
 
@@ -244,13 +232,10 @@ Add ColorAwareAugment for better color learning
 
 The approach succeeds because:
 
-Uses actual training data distributions, not hardcoded thresholds
-
-Validates both geometric (size) and color (blue percentage) features
-
-Applies class-specific confidence adjustments
-
-Handles edge cases through reclassification
+- Uses actual training data distributions, not hardcoded thresholds
+- Validates both geometric (size) and color (blue percentage) features
+- Applies class-specific confidence adjustments
+- Handles edge cases through reclassification
 
 # Debugging Commands:
 
