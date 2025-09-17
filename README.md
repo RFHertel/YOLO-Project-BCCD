@@ -8,36 +8,35 @@ This project implements YOLOv3 for blood cell detection and classification on th
 Directory Structure
 C:\AWrk\YOLO_Project_BCCD\yolov3_pytorch\
 
-Data & Configuration:
-
-- data_bccd/BCCD/ - Dataset root
-- JPEGImages/ - Blood cell images
-- Annotations/ - XML annotation files
-- ImageSets/Main/ - train.txt and test.txt splits
-- config/ - Configuration files
-- yolov3_config_bccd.py - Model configuration
+- Data & Configuration:
+  - data_bccd/BCCD/ - Dataset root
+    - JPEGImages/ - Blood cell images
+    - Annotations/ - XML annotation files
+    - ImageSets/Main/ - train.txt and test.txt splits
+  - config/ - Configuration files
+    - yolov3_config_bccd.py - Model configuration
 - Model & Code:
-- model/ - Model architecture files
-- yolov3_bccd.py - BCCD-specific YOLOv3 model
-- utils/ - Utility functions
-- data_augment.py - Data augmentation classes
-- datasets.py - Dataset loaders
-- tools.py - Helper functions
-- eval/ - Evaluation scripts
-- evaluator_bccd.py - mAP calculation
+  - model/ - Model architecture files
+    - yolov3_bccd.py - BCCD-specific YOLOv3 model
+    - utils/ - Utility functions
+      - data_augment.py - Data augmentation classes
+      - datasets.py - Dataset loaders
+      - tools.py - Helper functions
+    - eval/ - Evaluation scripts
+      - evaluator_bccd.py - mAP calculation
 - Weights & Outputs:
-- weight/ - Model weights
-- bccd_best.pt - Best trained model checkpoint
-- outputs/ - Auto-generated result directories
-- [timestamp_folders]/ - Results from each run
+  - weight/ - Model weights
+    - bccd_best.pt - Best trained model checkpoint
+  - outputs/ - Auto-generated result directories
+    - [timestamp_folders]/ - Results from each run
 - Main Scripts:
-- train_bccd_clean.py - Training script
-- test_bccd_clean.py - Basic testing and evaluation
-- test_bccd_two_stage_enhanced.py - Two-stage detection with - color correction
-- test_bccd_empirical_validation.py - Empirical validation using training statistics
-- analyze_training_annotations.py - Generate training data statistics
+  - train_bccd_clean.py - Training script
+  - test_bccd_clean.py - Basic testing and evaluation
+  - test_bccd_two_stage_enhanced.py - Two-stage detection with - color correction
+  - test_bccd_empirical_validation.py - Empirical validation using training statistics
+  - analyze_training_annotations.py - Generate training data statistics
 - Generated Files:
-- annotated_training_set_ranges.json - Training data statistics (created by analyze script)
+  - annotated_training_set_ranges.json - Training data statistics (created by analyze script)
 
 # Installation:
 
