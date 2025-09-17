@@ -255,3 +255,6 @@ The approach succeeds because:
 - Add weighted sampling for platelet class imbalance
 - Implement color histogram branch in network architecture
 - Fine-tune thresholds based on test set performance
+
+# Example Image Comparison:
+<img width="1291" height="570" alt="image" src="https://github.com/user-attachments/assets/2851d589-3dfd-4ad4-bd07-fe75595c404b" />
