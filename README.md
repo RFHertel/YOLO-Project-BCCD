@@ -51,7 +51,7 @@ python test_bccd_clean.py --evaluate
 
 3. Analyze Training Data
 - Generate empirical statistics from training annotations:
-python analyze_training_annotations.py
+  python analyze_training_annotations.py
 
   This creates annotated_training_set_ranges.json containing:
 - Area distributions per class
@@ -59,13 +59,14 @@ python analyze_training_annotations.py
 - Overlap patterns between classes
 - Other geometric features
 
+4. Test script (1 stage)
 - Process single image
 python test_bccd_two_stage_enhanced.py --image data_bccd/BCCD/JPEGImages/BloodImage_00001.jpg --compare
 
 - Process all test images with comparisons
 python test_bccd_two_stage_enhanced.py --batch --compare
 
-4. Two-Stage Detection (Color Correction)
+5. Two-Stage Detection (Color Correction)
 Apply color-based post-processing to improve classification:
 
 - Process single image
@@ -161,12 +162,8 @@ Missing platelets, WBCs or RBCs: Check empirical validation thresholds
 Ensure your working directory is:
 cd C:\AWrk\YOLO_Project_BCCD\yolov3_pytorch
 
-============================================================
-BCCD Stats:
-============================================================
 
-YOLO v3 BCCD Project - Training Success, Inference Failure Report
-Training Performance
+# BCCD Stats:
 
 Dataset: BCCD blood cell detection (292 training, 72 test images)
 Classes: 3 (RBC, WBC, Platelets)
@@ -175,8 +172,6 @@ Best mAP: 91.79% (epoch ~99)
 RBC: 86.71%
 WBC: 98.20%
 Platelets: 88.60%
-
-![alt text](image.png)
 
 # Additional Important Information
 # Model Performance Context
