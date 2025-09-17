@@ -8,20 +8,45 @@ This project implements YOLOv3 for blood cell detection and classification on th
 Directory Structure
 
 C:\AWrk\YOLO_Project_BCCD\yolov3_pytorch\
+│
 ├── data_bccd/
 │   └── BCCD/
-│       ├── JPEGImages/         # Blood cell images
-│       ├── Annotations/        # XML annotation files
+│       ├── JPEGImages/          # Blood cell images
+│       ├── Annotations/         # XML annotation files  
 │       └── ImageSets/
 │           └── Main/
-│               ├── train.txt   # Training image list
-│               └── test.txt    # Test image list
-├── model/                      # Model architecture files
-├── utils/                      # Utility functions
-├── weight/                     # Model weights
-│   └── bccd_best.pt           # Best trained model
-├── outputs/                    # Output directories (auto-created)
-└── config/                     # Configuration files
+│               ├── train.txt    # Training image list
+│               └── test.txt     # Test image list
+│
+├── model/                       # Model architecture files
+│   └── yolov3_bccd.py
+│
+├── utils/                       # Utility functions
+│   ├── data_augment.py
+│   ├── datasets.py
+│   └── tools.py
+│
+├── weight/                      # Model weights
+│   └── bccd_best.pt            # Best trained model
+│
+├── outputs/                     # Output directories (auto-created)
+│   └── [timestamp_folders]/    # Results from each run
+│
+├── config/                      # Configuration files
+│   └── yolov3_config_bccd.py
+│
+├── eval/                        # Evaluation scripts
+│   └── evaluator_bccd.py
+│
+│── Core Scripts:
+├── train_bccd_clean.py          # Training script
+├── test_bccd_clean.py           # Basic testing
+├── test_bccd_two_stage_enhanced.py      # Two-stage detection
+├── test_bccd_empirical_validation.py    # Empirical validation
+├── analyze_training_annotations.py      # Generate training statistics
+│
+│── Generated Files:
+└── annotated_training_set_ranges.json   # Training data statistics
 
 # Installation:
 
@@ -54,10 +79,10 @@ python test_bccd_clean.py --evaluate
   python analyze_training_annotations.py
 
   This creates annotated_training_set_ranges.json containing:
-- Area distributions per class
-- Color statistics (RGB, HSV, blue percentage)
-- Overlap patterns between classes
-- Other geometric features
+  - Area distributions per class
+  - Color statistics (RGB, HSV, blue percentage)
+  - Overlap patterns between classes
+  - Other geometric features
 
 4. Test script (1 stage)
 - Process single image
@@ -75,7 +100,7 @@ python test_bccd_two_stage_enhanced.py --image data_bccd/BCCD/JPEGImages/BloodIm
 - Process all test images with comparisons
 python test_bccd_two_stage_enhanced.py --batch --compare
 
-5. Empirical Validation Detection
+6. Empirical Validation Detection
 Use training data statistics for intelligent post-processing:
 
 - Process all test images with empirical validation
