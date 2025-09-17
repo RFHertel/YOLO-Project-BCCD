@@ -110,31 +110,33 @@ python test_bccd_empirical_validation.py --batch --compare
 python test_bccd_empirical_validation.py --image data_bccd/BCCD/JPEGImages/BloodImage_00001.jpg --compare
 
 # Key Features
+
 Empirical Validation System
+
 The empirical validation approach uses actual training data distributions to:
 
-Validate bounding box sizes against observed ranges
-Check color consistency (RBCs: <0.5% blue pixels, WBCs: ~45% blue pixels)
-Apply class-specific confidence thresholds
-Reclassify detections based on empirical fit
-Remove statistical outliers
+- Validate bounding box sizes against observed ranges
+- Check color consistency (RBCs: <0.5% blue pixels, WBCs: ~45% blue pixels)
+- Apply class-specific confidence thresholds
+- Reclassify detections based on empirical fit
+- Remove statistical outliers
 
-# Class-Specific Thresholds
+# Class-Specific Thresholds:
 
-RBC: Confidence threshold 0.15, aggressive NMS (0.2)
-WBC: Confidence threshold 0.15, moderate NMS (0.3)
-Platelets: Confidence threshold 0.13, gentle NMS (0.4)
+- RBC: Confidence threshold 0.15, aggressive NMS (0.2)
+- WBC: Confidence threshold 0.15, moderate NMS (0.3)
+- Platelets: Confidence threshold 0.13, gentle NMS (0.4)
 
-# Output Structure
+# Output Structure:
 Each run creates a timestamped output directory:
-outputs/empirical_validation_YYYYMMDD_HHMMSS/
-├── detections/         # Detection results
-├── comparisons/        # Side-by-side GT vs predictions
-├── ground_truth/       # Ground truth visualizations
-├── stats/             # Summary statistics (JSON)
-└── logs/              # Detailed tracking logs (JSON)
+- outputs/empirical_validation_YYYYMMDD_HHMMSS/
+- detections/ - Individual detection result images
+- comparisons/ - Side-by-side ground truth vs prediction - images
+- ground_truth/ - Ground truth visualization images
+- stats/ - Performance metrics (summary.json)
+- logs/ - Detailed detection tracking (detection_tracking.json)
 
-# Workflow Commands
+# Workflow Commands:
 Complete Training and Testing Pipeline
 
 1. Train the model
@@ -162,17 +164,17 @@ python test_bccd_empirical_validation.py --batch --compare
 # Configuration Options
 Training Parameters
 
---epochs: Number of training epochs (default: 100)
---batch: Batch size (default: 8)
---lr: Learning rate (default: 1e-4)
---resume: Resume from checkpoint
+-  --epochs: Number of training epochs (default: 100)
+-  --batch: Batch size (default: 8)
+-  --lr: Learning rate (default: 1e-4)
+-  --resume: Resume from checkpoint
 
 # Testing Parameters
 
---conf: Confidence threshold (default: 0.25)
---nms: NMS IoU threshold (default: 0.3)
---model: Model weights path (default: weight/bccd_best.pt)
---compare: Generate comparison visualizations
+- --conf: Confidence threshold (default: 0.25)
+- --nms: NMS IoU threshold (default: 0.3)
+- --model: Model weights path (default: weight/bccd_best.pt)
+- --compare: Generate comparison visualizations
 
 
 # Troubleshooting
