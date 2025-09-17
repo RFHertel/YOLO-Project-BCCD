@@ -55,50 +55,50 @@ python train_bccd_clean.py --epochs 100 --batch 8
 2. Basic Testing
 Test the model with standard YOLOv3 inference:
 
-- Test single image:
-python test_bccd_clean.py --image data_bccd/BCCD/JPEGImages/BloodImage_00001.jpg
+  - Test single image:
+  python test_bccd_clean.py --image data_bccd/BCCD/JPEGImages/BloodImage_00001.jpg
 
-- Test all test images:
-python test_bccd_clean.py --batch
+  - Test all test images:
+  python test_bccd_clean.py --batch
 
-- Run evaluation metrics
-python test_bccd_clean.py --evaluate
+  - Run evaluation metrics
+  python test_bccd_clean.py --evaluate
 
 3. Analyze Training Data
-- Generate empirical statistics from training annotations:
-  python analyze_training_annotations.py
+  - Generate empirical statistics from training annotations:
+    python analyze_training_annotations.py
 
-  This creates annotated_training_set_ranges.json containing:
-  - Area distributions per class
-  - Color statistics (RGB, HSV, blue percentage)
-  - Overlap patterns between classes
-  - Other geometric features
+    This creates annotated_training_set_ranges.json containing:
+    - Area distributions per class
+    - Color statistics (RGB, HSV, blue percentage)
+    - Overlap patterns between classes
+    - Other geometric features
 
 4. Test script (1 stage)
-- Process single image:
+  - Process single image:
 
-  python test_bccd_two_stage_enhanced.py --image data_bccd/BCCD/JPEGImages/BloodImage_00001.jpg --compare
+    python test_bccd_two_stage_enhanced.py --image data_bccd/BCCD/JPEGImages/BloodImage_00001.jpg --compare
 
-- Process all test images with comparisons:
-python test_bccd_two_stage_enhanced.py --batch --compare
+  - Process all test images with comparisons:
+  python test_bccd_two_stage_enhanced.py --batch --compare
 
 5. Two-Stage Detection (Color Correction)
-Apply color-based post-processing to improve classification:
+  Apply color-based post-processing to improve classification:
 
-- Process single image
-python test_bccd_two_stage_enhanced.py --image data_bccd/BCCD/JPEGImages/BloodImage_00001.jpg --compare
+  - Process single image
+  python test_bccd_two_stage_enhanced.py --image data_bccd/BCCD/JPEGImages/BloodImage_00001.jpg --compare
 
-- Process all test images with comparisons
-python test_bccd_two_stage_enhanced.py --batch --compare
+  - Process all test images with comparisons
+  python test_bccd_two_stage_enhanced.py --batch --compare
 
 6. Empirical Validation Detection
-Use training data statistics for intelligent post-processing:
+  Use training data statistics for intelligent post-processing:
 
-- Process all test images with empirical validation
-python test_bccd_empirical_validation.py --batch --compare
+  - Process all test images with empirical validation
+  python test_bccd_empirical_validation.py --batch --compare
 
-- Process single image
-python test_bccd_empirical_validation.py --image data_bccd/BCCD/JPEGImages/BloodImage_00001.jpg --compare
+  - Process single image
+  python test_bccd_empirical_validation.py --image data_bccd/BCCD/JPEGImages/BloodImage_00001.jpg --compare
 
 # Key Features
 
@@ -182,33 +182,28 @@ cd C:\AWrk\YOLO_Project_BCCD\yolov3_pytorch
 
 # BCCD Stats:
 
-Dataset: BCCD blood cell detection (292 training, 72 test images)
-
-Classes: 3 (RBC, WBC, Platelets)
-
-Best mAP: 91.79% (epoch ~99)
-
-RBC: 86.71%
-
-WBC: 98.20%
-
-Platelets: 88.60%
+- Dataset: BCCD blood cell detection (292 training, 72 test images)
+- Classes: 3 (RBC, WBC, Platelets)
+- Best mAP: 91.79% (epoch ~99)
+- RBC: 86.71%
+- WBC: 98.20%
+- Platelets: 88.60%
 
 # Additional Important Information
 # Model Performance Context
 
 Original YOLOv3 Performance:
-- mAP@50: ~92% (misleading - model learned shape but not color)
-- Issue: High mAP but poor semantic accuracy (WBCs detected on non-blue objects)
-- Solution: Empirical validation using actual training data distributions
+  - mAP@50: ~92% (misleading - model learned shape but not color)
+  - Issue: High mAP but poor semantic accuracy (WBCs detected on non-blue objects)
+  - Solution: Empirical validation using actual training data distributions
 
 # Key Insights from Training Data Analysis
 
 Blood Cell Characteristics (from training data):
 
-- RBCs: Area 3864-23616 px², <0.5% blue pixels on average
-- WBCs: Area 837-66352 px², ~45% blue pixels (distinctly blue/purple)
-- Platelets: Area 576-2891 px² (95th percentile), ~37% blue pixels
+  - RBCs: Area 3864-23616 px², <0.5% blue pixels on average
+  - WBCs: Area 837-66352 px², ~45% blue pixels (distinctly blue/purple)
+  - Platelets: Area 576-2891 px² (95th percentile), ~37% blue pixels
 
 A script automatically analyzes the training distribution and those insights inform a two stage process for which bounding boxes to keep
 
@@ -231,39 +226,32 @@ If retraining, modify utils/datasets.py:
 
 The approach succeeds because:
 
-- Uses actual training data distributions, not hardcoded thresholds
-- Validates both geometric (size) and color (blue percentage) features
-- Applies class-specific confidence adjustments
-- Handles edge cases through reclassification
+  - Uses actual training data distributions, not hardcoded thresholds
+  - Validates both geometric (size) and color (blue percentage) features
+  - Applies class-specific confidence adjustments
+  - Handles edge cases through reclassification
 
 # Debugging Commands:
 
 # Check specific image issues
 
-python test_bccd_empirical_validation.py --image data_bccd/BCCD/JPEGImages/BloodImage_00001.jpg
+- python test_bccd_empirical_validation.py --image data_bccd/BCCD/JPEGImages/BloodImage_00001.jpg
 
-Analyze why detections were removed (check JSON logs)
+- Analyze why detections were removed (check JSON logs)
 
-Look in: outputs/empirical_validation_*/logs/detection_tracking.json
+- Look in: outputs/empirical_validation_*/logs/detection_tracking.json
 
 # This project demonstrates:
 
-Problem diagnosis (high mAP but poor semantic accuracy)
-
-Data-driven solution design (empirical validation)
-
-Iterative improvement methodology
-
-Understanding of both deep learning and classical CV techniques
-
-Ability to identify and fix model blind spots
+- Problem diagnosis (high mAP but poor semantic accuracy)
+- Data-driven solution design (empirical validation)
+- Iterative improvement methodology
+- Understanding of both deep learning and classical CV techniques
+- Ability to identify and fix model blind spots
 
 # Possible Future Improvements:
 
-Retrain with color-aware loss function
-
-Add weighted sampling for platelet class imbalance
-
-Implement color histogram branch in network architecture
-
-Fine-tune thresholds based on test set performance
+- Retrain with color-aware loss function
+- Add weighted sampling for platelet class imbalance
+- Implement color histogram branch in network architecture
+- Fine-tune thresholds based on test set performance
