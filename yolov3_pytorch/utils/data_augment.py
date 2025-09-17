@@ -1,3 +1,4 @@
+#data_augment.py
 # coding=utf-8
 import cv2
 import random
@@ -119,7 +120,52 @@ class Mixup(object):
             bboxes = np.concatenate([bboxes_org, np.full((len(bboxes_org), 1), 1.0)], axis=1)
 
         return img, bboxes
+    
+# class ColorAwareAugment(object):
+#     """Force network to use color by destroying other features"""
+#     def __init__(self, p=0.7):
+#         self.p = p
+    
+#     def __call__(self, img, bboxes):
+#         if random.random() < self.p:
+#             # Randomly blur to destroy texture/edges
+#             if random.random() > 0.5:
+#                 kernel_size = random.choice([3, 5, 7])
+#                 img = cv2.GaussianBlur(img, (kernel_size, kernel_size), 0)
+            
+#             # Add noise to destroy fine details
+#             if random.random() > 0.5:
+#                 noise = np.random.randn(*img.shape) * 10
+#                 img = np.clip(img + noise, 0, 255).astype(np.uint8)
+            
+#             # Vary brightness/contrast but preserve hue ratios
+#             alpha = random.uniform(0.7, 1.3)  # Contrast
+#             beta = random.uniform(-40, 40)    # Brightness
+#             img = cv2.convertScaleAbs(img, alpha=alpha, beta=beta)
+            
+#         return img, bboxes
 
+class ColorAwareAugment(object):
+    def __init__(self, p=0.7):
+        self.p = p
+    
+    def __call__(self, img, bboxes):
+        if random.random() < self.p:
+            # Destroy texture while preserving color
+            blur_choice = random.random()
+            if blur_choice < 0.3:
+                kernel = random.choice([3, 5])
+                img = cv2.GaussianBlur(img, (kernel, kernel), 0)
+            elif blur_choice < 0.5:
+                kernel = random.choice([3, 5])
+                img = cv2.medianBlur(img, kernel)
+            
+            # Brightness/contrast but preserve color ratios
+            alpha = random.uniform(0.8, 1.2)
+            beta = random.uniform(-20, 20)
+            img = cv2.convertScaleAbs(img, alpha=alpha, beta=beta)
+            
+        return img, bboxes
 
 class LabelSmooth(object):
     def __init__(self, delta=0.01):

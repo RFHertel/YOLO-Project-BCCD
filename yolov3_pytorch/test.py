@@ -6,7 +6,9 @@ from utils.tools import *
 from eval.evaluator import Evaluator
 import argparse
 import os
-import config.yolov3_config_voc as cfg
+#import config.yolov3_config_voc as cfg
+import config.yolov3_config_bccd as cfg
+
 from utils.visualize import *
 
 # import os

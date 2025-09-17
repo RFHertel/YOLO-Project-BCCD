@@ -12,7 +12,7 @@ from model.backbones.darknet53 import Darknet53
 from model.necks.yolo_fpn import FPN_YOLOV3
 from model.head.yolo_head import Yolo_head
 from model.layers.conv_module import Convolutional
-import config.yolov3_config_voc as cfg
+#import config.yolov3_config_voc as cfg
 import numpy as np
 from utils.tools import *
 

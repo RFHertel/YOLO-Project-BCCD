@@ -5,7 +5,8 @@ sys.path.append("..")
 sys.path.append("../utils")
 import torch
 from torch.utils.data import Dataset, DataLoader
-import config.yolov3_config_voc as cfg
+#import config.yolov3_config_voc as cfg
+import config.yolov3_config_bccd as cfg
 import cv2
 import numpy as np
 import random
@@ -17,10 +18,18 @@ import utils.tools as tools
 
 
 class VocDataset(Dataset):
-    def __init__(self, anno_file_type, img_size=416):
+    def __init__(self, anno_file_type, img_size=416, anno_file_name=None):
         self.img_size = img_size  # For Multi-training
         self.classes = cfg.DATA["CLASSES"]
         self.num_classes = len(self.classes)
+
+        # Use custom annotation file if provided, otherwise use default
+        if anno_file_name:
+            self.annotation = anno_file_name
+        else:
+            # Default VOC path
+            self.annotation = os.path.join(cfg.PROJECT_PATH, 'data', f"{anno_file_type}_annotation.txt")
+
         self.class_to_id = dict(zip(self.classes, range(self.num_classes)))
         self.__annotations = self.__load_annotations(anno_file_type)
 
@@ -55,13 +64,17 @@ class VocDataset(Dataset):
 
 
     def __load_annotations(self, anno_type):
-
         assert anno_type in ['train', 'test'], "You must choice one of the 'train' or 'test' for anno_type parameter"
-        anno_path = os.path.join(cfg.PROJECT_PATH, 'data', anno_type+"_annotation.txt")
+        
+        # Use the annotation file set in __init__ instead of hardcoded path
+        anno_path = self.annotation  
+        
+        print(f"Loading annotations from: {anno_path}")  # Debug print
+        
         with open(anno_path, 'r') as f:
             annotations = list(filter(lambda x:len(x)>0, f.readlines()))
         assert len(annotations)>0, "No images found in {}".format(anno_path)
-
+        
         return annotations
 
     def __parse_annotation(self, annotation):
@@ -79,10 +92,10 @@ class VocDataset(Dataset):
         bboxes = np.array([list(map(float, box.split(','))) for box in anno[1:]])
 
         img, bboxes = dataAug.RandomHorizontalFilp()(np.copy(img), np.copy(bboxes))
-        img, bboxes = dataAug.RandomCrop()(np.copy(img), np.copy(bboxes))
-        img, bboxes = dataAug.RandomAffine()(np.copy(img), np.copy(bboxes))
+        #img, bboxes = dataAug.RandomCrop()(np.copy(img), np.copy(bboxes))
+        #img, bboxes = dataAug.RandomAffine()(np.copy(img), np.copy(bboxes))
+        img, bboxes = dataAug.ColorAwareAugment(p=0.7)(img, bboxes)  # ADD THIS LINE
         img, bboxes = dataAug.Resize((self.img_size, self.img_size), True)(np.copy(img), np.copy(bboxes))
-
         return img, bboxes
 
     def __creat_label(self, bboxes):

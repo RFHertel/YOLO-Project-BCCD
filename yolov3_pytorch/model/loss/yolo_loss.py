@@ -3,7 +3,8 @@ sys.path.append("../utils")
 import torch
 import torch.nn as nn
 from utils import tools
-import config.yolov3_config_voc as cfg
+#import config.yolov3_config_voc as cfg
+import config.yolov3_config_bccd as cfg
 
 
 class FocalLoss(nn.Module):

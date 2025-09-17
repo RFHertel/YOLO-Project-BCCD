@@ -2,8 +2,8 @@
 # project
 # DATA_PATH = "/home/leon/data/data/VOC"
 # PROJECT_PATH = "/home/leon/doc/code/python_code/YOLOV3"
-DATA_PATH = r"C:\AWrk\Pascal_YOLO_Project\data\VOCdevkit"
-PROJECT_PATH = r"C:\AWrk\Pascal_YOLO_Project\yolov3_pytorch"
+DATA_PATH = r"C:\AWrk\YOLO_Project_BCCD\data\VOCdevkit"
+PROJECT_PATH = r"C:\AWrk\YOLO_Project_BCCD\yolov3_pytorch"
 
 
 

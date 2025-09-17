@@ -1,3 +1,4 @@
+#"C:\AWrk\YOLO_Project_BCCD\yolov3_pytorch\utils\tools.py"
 #coding=utf-8
 import sys
 sys.path.append("..")
@@ -6,6 +7,7 @@ import numpy as np
 import cv2
 import random
 import config.yolov3_config_voc as cfg
+# import config.yolov3_config_bccd as cfg
 import os
 
 

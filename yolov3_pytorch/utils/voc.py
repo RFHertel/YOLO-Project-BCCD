@@ -75,7 +75,8 @@ Fixed VOC annotation converter for your actual directory structure
 import sys
 sys.path.append("..")
 import xml.etree.ElementTree as ET
-import config.yolov3_config_voc as cfg
+#import config.yolov3_config_voc as cfg
+import config.yolov3_config_bccd as cfg
 import os
 from tqdm import tqdm
 

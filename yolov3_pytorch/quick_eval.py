@@ -1,4 +1,4 @@
-#C:\AWrk\Pascal_YOLO_Project\yolov3_pytorch\quick_eval.py
+#C:\AWrk\YOLO_Project_BCCD\yolov3_pytorch\quick_eval.py
 
 import json
 
